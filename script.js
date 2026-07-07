@@ -1,30 +1,47 @@
-// تحديث الساعة
+// تحديث الساعة بدقة وبدون اهتزاز للواجهة
 function updateClock() {
     const now = new Date();
     const hours = now.getHours().toString().padStart(2, '0');
     const minutes = now.getMinutes().toString().padStart(2, '0');
     const seconds = now.getSeconds().toString().padStart(2, '0');
-    document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+    
+    const clockElement = document.getElementById('clock');
+    if (clockElement) {
+        clockElement.textContent = `${hours}:${minutes}:${seconds}`;
+    }
 }
 setInterval(updateClock, 1000);
 updateClock();
 
-// جلب بيانات الطقس
+// جلب بيانات الطقس لمدينة طولقة
 async function fetchWeather() {
-    const apiKey = '23fc01f97a7dc8491f9d0905a0e47b7b'; // ضع مفتاح API الخاص بك هنا
+    const apiKey = '23fc01f97a7dc8491f9d0905a0e47b7b'; 
     const city = 'Tolga, DZ';
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&lang=ar&appid=${apiKey}`;
 
+    const tempElement = document.getElementById('temperature');
+    const descElement = document.getElementById('description');
+
     try {
         const response = await fetch(url);
+        if (!response.ok) throw new Error('فشل في جلب البيانات');
+        
         const data = await response.json();
-        document.getElementById('temperature').textContent = `درجة الحرارة: ${data.main.temp}°C`;
-        document.getElementById('description').textContent = `الوصف: ${data.weather[0].description}`;
+        
+        // إزالة فئة الـ loading وتحديث النصوص بسلاسة
+        tempElement.classList.remove('loading-text');
+        descElement.classList.remove('loading-text');
+        
+        tempElement.textContent = `درجة الحرارة الحالية: ${Math.round(data.main.temp)}°C`;
+        descElement.textContent = `حالة الجو: ${data.weather[0].description}`;
     } catch (error) {
-        document.getElementById('temperature').textContent = 'تعذر جلب الطقس';
-        document.getElementById('description').textContent = '';
+        console.error(error);
+        tempElement.classList.remove('loading-text');
+        descElement.classList.remove('loading-text');
+        tempElement.textContent = 'تعذر جلب بيانات الطقس حالياً';
+        descElement.textContent = 'يرجى التحقق من الاتصال بالإنترنت';
     }
 }
 
-// استدعاء الطقس عند تحميل الصفحة
-fetchWeather();
+// استدعاء الدالة فور تحميل الصفحة
+document.addEventListener('DOMContentLoaded', fetchWeather);
