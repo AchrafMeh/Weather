@@ -1,61 +1,60 @@
 /* إعدادات الخطوط والتناسق العام */
 *, *::before, *::after {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #1f4068, #162447, #1b1a17); 
-    color: white;
-    margin: 0;
-    padding: 0;
+    background: linear-gradient(135deg, #121826, #1a233a); /* ألوان داكنة ناعمة تشبه واجهات Samsung One UI */
+    color: #f1f5f9;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: min-content;
-    min-height: 100vh;
+    -webkit-tap-highlight-color: transparent; /* إزالة الوميض الأزرق عند الضغط في الهاتف */
 }
 
-/* الهيكل التفاعلي الرئيسي المحيط بالواجهة */
+/* الهيكل الرئيسي للموقع */
 .main-layout {
-    width: 95%;
-    max-width: 1000px;
-    margin: 40px auto;
-    display: grid;
-    grid-template-columns: 1fr; /* الافتراضي للهواتف: عمود واحد */
-    gap: 20px;
-    padding: 10px;
-}
-
-/* التنسيق الزجاجي الموحد للألواح */
-.primary-panel, .secondary-panel {
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 20px;
-    padding: 25px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 950px;
+    padding: 16px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    gap: 16px;
 }
 
-/* لوحة التوقعات */
+/* الألواح الزجاجية بتصميم ناعم وملموم (Samsung Style) */
+.primary-panel, .secondary-panel {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px; /* حواف دائرية ناعمة جداً */
+    padding: 20px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+}
+
 .secondary-panel {
-    justify-content: flex-start;
-    gap: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-/* تنسيق الساعة الاحترافي */
-.clock {
-    font-size: 3.2em;
-    font-weight: bold;
+/* تنسيق الساعة في الهاتف (صغيرة وغير ضخمة) */
+.clock-box {
     text-align: center;
-    margin-bottom: 10px;
-    letter-spacing: 2px;
+    margin-bottom: 5px;
+}
+
+.clock {
+    font-size: 2.2em; /* حجم ملموم يناسب شاشة الهاتف */
+    font-weight: 700;
     font-family: monospace;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    letter-spacing: 1px;
+    color: #ffffff;
 }
 
 /* قسم الطقس الحالي */
@@ -64,115 +63,144 @@ body {
 }
 
 .weather h2 {
-    margin: 10px 0 20px 0;
-    font-size: 1.8em;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.15);
-    padding-bottom: 10px;
-}
-
-.weather-icon {
-    width: 90px;
-    height: 90px;
-    filter: drop-shadow(0px 6px 12px rgba(0,0,0,0.3));
-}
-
-.weather-info p {
     font-size: 1.3em;
-    margin: 12px 0;
+    font-weight: 600;
+    color: #94a3b8;
+    margin-bottom: 12px;
+}
+
+.weather-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+/* أيقونة الطقس - حجم ملموم */
+.weather-icon {
+    width: 70px;
+    height: 70px;
+    filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.15));
+}
+
+#temperature {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+#description {
+    font-size: 1em;
+    color: #cbd5e1;
 }
 
 .loading-text {
     opacity: 0.6;
-    font-size: 1em !important;
+    font-size: 0.9em !important;
     font-style: italic;
 }
 
-/* أقسام التوقعات */
+/* عناوين الأقسام الحركية */
 .forecast-section {
     text-align: right;
 }
 
 .forecast-section h3 {
-    font-size: 1.15em;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    padding-bottom: 8px;
-    margin-bottom: 15px;
-    color: #e0e0e0;
+    font-size: 1em;
+    font-weight: 600;
+    color: #94a3b8;
+    margin-bottom: 12px;
+    padding-right: 4px;
 }
 
-/* التوقعات بالساعات (أفقي متجاوب باللمس) */
+/* الطقس بالساعات (أفقي وسلس جداً باللمس مثل التطبيقات الأصلية) */
 .hourly-forecast {
     display: flex;
     overflow-x: auto;
+    gap: 10px;
     padding-bottom: 8px;
-    gap: 12px;
-    scrollbar-width: thin;
+    scrollbar-width: none; /* إخفاء السكرول بار في فايرفوكس */
+}
+
+.hourly-forecast::-webkit-scrollbar {
+    display: none; /* إخفاء السكرول بار في كروم وسفاري للظهور كـ تطبيق */
 }
 
 .forecast-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.04);
     padding: 10px;
-    border-radius: 12px;
-    min-width: 75px;
+    border-radius: 16px;
+    min-width: 65px;
     flex-shrink: 0;
+    gap: 2px;
 }
 
 .forecast-item span {
-    font-size: 0.85em;
-    opacity: 0.8;
+    font-size: 0.78em;
+    color: #94a3b8;
 }
 
 .forecast-item img {
-    width: 45px;
-    height: 45px;
+    width: 36px;
+    height: 36px;
 }
 
-/* التوقعات بالأيام */
+.forecast-item grand {
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+/* الطقس بالأيام (قائمة ملمومة ومنظمة) */
 .daily-forecast {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
 }
 
 .daily-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(255, 255, 255, 0.04);
-    padding: 10px 18px;
-    border-radius: 12px;
-    transition: background 0.2s;
-}
-
-.daily-item:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.02);
+    padding: 10px 14px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 .day-name {
-    width: 100px;
-    text-align: right;
+    width: 80px;
+    font-size: 0.9em;
     font-weight: 600;
+    color: #f1f5f9;
 }
 
 .day-desc {
-    font-size: 0.95em;
-    opacity: 0.8;
+    font-size: 0.85em;
+    color: #94a3b8;
     flex-grow: 1;
     text-align: right;
-    padding-right: 20px;
+    padding-right: 12px;
 }
 
 .daily-item img {
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
 }
 
-/* ستايل زر تحميل التطبيق بشكل عصري جداً */
+.daily-item strong {
+    font-size: 0.95em;
+    color: #ffffff;
+    width: 45px;
+    text-align: left;
+}
+
+/* زر تحميل التطبيق (ناعم ومناسب للإبهام بدون ما يكون ضخم) */
 .download-section {
-    margin-top: 25px;
+    margin-top: 16px;
     text-align: center;
 }
 
@@ -180,35 +208,36 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    background: linear-gradient(135deg, #00b4db, #0083b0);
+    gap: 8px;
+    background: #2563eb; /* أزرق سامسونج الكلاسيكي المريح */
     color: white;
     text-decoration: none;
-    padding: 14px 24px;
-    font-weight: bold;
-    border-radius: 30px;
-    box-shadow: 0 4px 20px rgba(0, 180, 219, 0.3);
-    transition: transform 0.2s, box-shadow 0.2s;
+    padding: 12px 20px;
+    font-size: 0.95em;
+    font-weight: 600;
+    border-radius: 16px;
+    transition: background 0.2s, transform 0.1s;
     width: 100%;
+    max-width: 280px; /* تحديد العرض في الهاتف لكي لا يتمدد بشكل قبيح */
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
 }
 
-.btn-download:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 25px rgba(0, 180, 219, 0.5);
+.btn-download:active {
+    transform: scale(0.98); /* تأثير الضغط الخفيف مثل التطبيقات الحقيقية */
+    background: #1d4ed8;
 }
 
 .download-icon {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
 }
 
 /* الفوتر */
 .site-footer {
-    width: 100%;
     margin-top: auto;
-    padding: 20px;
-    font-size: 0.85em;
-    color: rgba(255, 255, 255, 0.5);
+    padding: 16px;
+    font-size: 0.75em;
+    color: #64748b;
     text-align: center;
 }
 
@@ -224,21 +253,39 @@ body {
 }
 
 /* ========================================================
-   شاشات الكمبيوتر والأجهزة اللوحية الكبيرة (Responsive Media Query)
+   التناسق التلقائي مع شاشات الكمبيوتر (Desktop)
    ======================================================== */
 @media (min-width: 768px) {
     .main-layout {
-        grid-template-columns: 4fr 5fr; /* تقسيم الشاشة لعمودين متناسقين */
-        align-items: start;
-        gap: 30px;
+        display: grid;
+        grid-template-columns: 4fr 5fr; /* تقسيم الشاشة لجهتين متناسقتين */
+        gap: 24px;
+        margin-top: 60px;
     }
     
     .primary-panel {
-        position: sticky; /* يثبت العنصر عند النزول لأسفل الصفحة في الشاشات الكبيرة */
-        top: 40px;
+        position: sticky;
+        top: 24px;
+        padding: 30px;
+    }
+    
+    .secondary-panel {
+        padding: 30px;
     }
 
     .clock {
-        font-size: 3.8em;
+        font-size: 3.2em; /* حجم أكبر ومناسب للشاشات الكبيرة */
+    }
+
+    .weather h2 {
+        font-size: 1.6em;
+    }
+
+    #temperature {
+        font-size: 2em;
+    }
+
+    .btn-download {
+        max-width: 100%; /* تمدد متناسق داخل اللوحة في الكمبيوتر */
     }
 }
