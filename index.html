@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- تحسينات الأرشفة القصوى لجوجل -->
     <title>الساعة الآن وحالة الطقس في طولقة | تحديث مباشر</title>
     <link rel="icon" type="image/png" href="/icon.png">
     <meta name="description" content="تابع أحوال الطقس في طولقة لحظة بلحظة. درجات الحرارة الحالية، الرطوبة، وأحوال الجو مع الساعة والوقت الآن بدقة عالية في مدينة طولقة، ولاية بسكرة.">
@@ -13,84 +12,78 @@
     
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="googlebot" content="index, follow">
-    <link rel="canonical" href="https://achrafmeh.github.io/meteo/" />
+    <link rel="canonical" href="https://tol-meteo.netlify.app/" />
 
-    <!-- بطاقات الـ Open Graph لمنصات التواصل (فيسبوك، واتساب) لظهور احترافي -->
     <meta property="og:locale" content="ar_DZ">
     <meta property="og:type" content="website">
     <meta property="og:title" content="الساعة الآن وحالة الطقس في طولقة | تحديث مباشر">
     <meta property="og:description" content="تابع أحوال الطقس في طولقة لحظة بلحظة مع الساعة والوقت الآن بدقة عالية.">
-    <meta property="og:url" content="https://achrafmeh.github.io/meteo/">
+    <meta property="og:url" content="https://tol-meteo.netlify.app/">
     <meta property="og:site_name" content="طقس وساعة طولقة">
     <meta property="og:image" content="https://achrafmeh.github.io/meteo/i.jpg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
 
-    <!-- بطاقات تويتر / إكس -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="الساعة وحالة الطقس في طولقة">
-    <meta name="twitter:description" content="تحديث مباشر لأحوال الجو والوقت الحالي في مدينة طولقة.">
-
-    <!-- ربط الملفات الخارجية مع استخدام التسميات الصحيحة -->
     <link rel="stylesheet" href="styles.css">
     <script defer src="script.js"></script>
 
-    <!-- كود الـ Schema.org لمساعدة محرك البحث على إظهار موقعك بشكل متقدم في النتائج -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "موقع طقس وساعة طولقة",
-      "url": "https://achrafmeh.github.io/Weather/",
+      "url": "https://tol-meteo.netlify.app/",
       "description": "تطبيق ويب تفاعلي لعرض حالة الطقس الحالية بدقة والساعة الآن لمدينة طولقة بالجزائر.",
       "applicationCategory": "WeatherApplication",
       "operatingSystem": "All",
       "browserRequirements": "Requires HTML5, JavaScript"
     }
     </script>
-    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
-    <!-- كود تحديد الصفحة الأساسية لـ Google -->
-<link rel="canonical" href="https://tol-meteo.netlify.app/" />
-
-<!-- كود تحويل الزوار تلقائياً من GitHub إلى Netlify -->
-<script>
-  if (window.location.hostname.includes("github.io")) {
-    window.location.replace("https://tol-meteo.netlify.app/");
-  }
-</script>
-
-    <script src="https://pl30302134.effectivecpmnetwork.com/f1/e0/a6/f1e0a658860ea3f9f109213da0d92cfa.js"></script>
-
-
-
 </head>
 <body>
 
-    <!-- تحويل الهيكل إلى وسوم دلالية (Semantic HTML) تعشقها محركات البحث -->
     <main class="container">
         
-        <!-- عنوان H1 رئيسي مخفي عن الزوار وموجه خصيصاً لأرشفة جوجل للكلمة المفتاحية -->
         <h1 class="visual-hidden">الوقت الحالي وحالة الطقس في طولقة بسكرة</h1>
 
-        <!-- قسم الساعة والتوقيت المباشر -->
+        <!-- قسم الساعة -->
         <section class="clock-box" aria-label="الساعة الآن">
             <div class="clock" id="clock" aria-live="off">00:00:00</div>
         </section>
 
-        <!-- قسم الطقس وأحوال الجو -->
+        <!-- قسم الطقس الحالي -->
         <section class="weather" aria-labelledby="weather-title">
             <h2 id="weather-title">الطقس في طولقة</h2>
             
             <div class="weather-info">
-                <!-- نصوص افتراضية ذكية تحتوي على كلمات مفتاحية ليقرأها جوجل كـ Content مفيد فوراً -->
+                <!-- إضافة مكان الصورة لوصف حالة الطقس -->
+                <div id="weather-icon-container"></div>
                 <p id="temperature" class="loading-text">جاري جلب درجة الحرارة في طولقة...</p>
                 <p id="description" class="loading-text">جاري فحص حالة الطقس الحالية...</p>
             </div>
         </section>
 
+        <!-- قسم الطقس بالساعات (جديد) -->
+        <section class="forecast-section">
+            <h3>الطقس خلال الساعات القادمة</h3>
+            <div class="hourly-forecast" id="hourly-forecast">
+                <p class="loading-text">جاري جلب توقعات الساعات...</p>
+            </div>
+        </section>
+
+        <!-- قسم الطقس بالأيام (جديد) -->
+        <section class="forecast-section">
+            <h3>توقعات الأيام القادمة</h3>
+            <div class="daily-forecast" id="daily-forecast">
+                <p class="loading-text">جاري جلب توقعات الأيام...</p>
+            </div>
+        </section>
+
+        <!-- زر تحميل التطبيق (جديد) -->
+        <section class="download-section">
+            <a href="#" id="download-btn" class="btn-download" target="_blank">حمل تطبيقنا</a>
+        </section>
+
     </main>
 
-    <!-- تذييل الصفحة يدعم الأرشفة المحلية بربط المنطقة والبلد -->
     <footer class="site-footer">
         <p>جميع الحقوق محفوظة &copy; 2026 | طقس طولقة - ولاية بسكرة، الجزائر.</p>
     </footer>
