@@ -13,10 +13,10 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
-// ضع رابط تحميل التطبيق الخاص بك هنا بين القوسين
+// رابط ميديا فاير الخاص بتطبيقك الذي قدمته
 const DOWNLOAD_URL = "https://www.mediafire.com/file/cfj35787p3ftg8z/TOLGA-M%25C3%2589T%25C3%2589O.apk/file"; 
 
-// تعيين الرابط لزر التحميل
+// تعيين الرابط لزر التحميل عند جاهزية الصفحة
 document.addEventListener('DOMContentLoaded', () => {
     const downloadBtn = document.getElementById('download-btn');
     if(downloadBtn) {
@@ -29,7 +29,6 @@ async function fetchWeather() {
     const apiKey = '23fc01f97a7dc8491f9d0905a0e47b7b'; 
     const city = 'Tolga, DZ';
     
-    // روابط جلب الطقس الحالي والتوقعات (الساعات والأيام)
     const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&lang=ar&appid=${apiKey}`;
     const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&lang=ar&appid=${apiKey}`;
 
@@ -51,7 +50,6 @@ async function fetchWeather() {
         tempElement.textContent = `درجة الحرارة الحالية: ${Math.round(data.main.temp)}°C`;
         descElement.textContent = `حالة الجو: ${data.weather[0].description}`;
         
-        // إضافة صورة وصف حالة الطقس الرسمية
         const iconCode = data.weather[0].icon;
         iconContainer.innerHTML = `<img src="https://openweathermap.org/img/wn/${iconCode}@2x.png" alt="${data.weather[0].description}" class="weather-icon">`;
         
@@ -67,11 +65,10 @@ async function fetchWeather() {
         if (!response.ok) throw new Error('فشل في جلب التوقعات');
         const data = await response.json();
         
-        // تنظيف الحاويات من نصوص التحميل
         hourlyContainer.innerHTML = '';
         dailyContainer.innerHTML = '';
         
-        // عرض الطقس بالساعات (أول 5 فترات مستقبلية - كل فترة 3 ساعات)
+        // عرض الطقس بالساعات (أول 5 فترات مستقبلية)
         for (let i = 0; i < 5; i++) {
             const item = data.list[i];
             const time = new Date(item.dt_txt).toLocaleTimeString('ar-DZ', {hour: '2-digit', minute:'2-digit'});
@@ -87,14 +84,13 @@ async function fetchWeather() {
             `;
         }
 
-        // عرض الطقس بالأيام (ناخذ قراءة واحدة من كل يوم ليلا أو نهارا)
+        // عرض الطقس بالأيام (قراءة واحدة لكل يوم مستقبلي)
         const daysAdded = {};
         data.list.forEach(item => {
             const dateStr = new Date(item.dt_txt).toLocaleDateString('ar-DZ', {weekday: 'long'});
             const todayStr = new Date().toLocaleDateString('ar-DZ', {weekday: 'long'});
             
-            // لتجنب تكرار نفس اليوم، نأخذ قراءة واحدة فقط لكل يوم مستقبلي
-            if (!daysAdded[dateStr] && dateStr !== todayStr && Object.keys(daysAdded).length < 4) {
+            if (!daysAdded[dateStr] && dateStr !== todayStr && Object.keys(daysAdded).length < 5) {
                 daysAdded[dateStr] = true;
                 const temp = Math.round(item.main.temp);
                 const icon = item.weather[0].icon;
