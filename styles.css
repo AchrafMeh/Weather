@@ -1,13 +1,12 @@
-/* إعدادات الخطوط والتناسق العام */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(to bottom, #1f4068, #162447); /* خلفية داكنة مريحة للعين وتناسب الطقس */
+    background: linear-gradient(to bottom, #1f4068, #162447); 
     color: white;
     text-align: center;
     margin: 0;
-    padding: 0;
+    padding: 20px 0; /* زدنا شوية مساحة للفوق والتحت */
     display: flex;
-    flex-direction: column; /* للسماح بوجود الفوتر في الأسفل بشكل مريح */
+    flex-direction: column; 
     justify-content: center;
     align-items: center;
     min-height: 100vh;
@@ -15,14 +14,14 @@ body {
 
 .container {
     background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px); /* تأثير زجاجي عصري واحترافي */
+    backdrop-filter: blur(10px); 
     -webkit-backdrop-filter: blur(10px);
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.2);
     width: 90%;
-    max-width: 400px; /* متوافق تماماً مع الهواتف الذكية */
+    max-width: 430px; /* كبرنا العرض شوية باش يكفي جداول الساعات */
     margin: auto;
 }
 
@@ -31,7 +30,7 @@ body {
     font-weight: bold;
     margin-bottom: 15px;
     letter-spacing: 2px;
-    font-family: monospace; /* ثبات أبعاد الأرقام أثناء تغير الثواني لمنع اهتزاز التصميم */
+    font-family: monospace; 
 }
 
 .weather h2 {
@@ -41,7 +40,13 @@ body {
     padding-bottom: 10px;
 }
 
-/* تهيئة مساحة النصوص لمنع حدوث (CLS - Cumulative Layout Shift) */
+/* تنسيق أيقونة الطقس الحالية */
+.weather-icon {
+    width: 80px;
+    height: 80px;
+    filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.2));
+}
+
 .weather-info p {
     font-size: 1.2em;
     margin: 10px 0;
@@ -54,6 +59,108 @@ body {
     font-style: italic;
 }
 
+/* تنسيقات أقسام التوقعات الجديدة (الساعات والأيام) */
+.forecast-section {
+    margin-top: 25px;
+    text-align: right; /* محاذاة للغة العربية */
+}
+
+.forecast-section h3 {
+    font-size: 1.1em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    color: #e4e4e4;
+}
+
+/* ستايل الساعات بشكل أفقي مرن */
+.hourly-forecast {
+    display: flex;
+    justify-content: space-between;
+    overflow-x: auto;
+    padding-bottom: 5px;
+    gap: 10px;
+}
+
+.forecast-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px;
+    border-radius: 8px;
+    min-width: 60px;
+    text-align: center;
+}
+
+.forecast-item span {
+    font-size: 0.85em;
+    opacity: 0.8;
+}
+
+.forecast-item img {
+    width: 40px;
+    height: 40px;
+}
+
+/* ستايل الأيام بشكل عمودي منظم */
+.daily-forecast {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.daily-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px 15px;
+    border-radius: 8px;
+}
+
+.day-name {
+    width: 90px;
+    text-align: right;
+}
+
+.day-desc {
+    font-size: 0.9em;
+    opacity: 0.8;
+    flex-grow: 1;
+    text-align: right;
+    padding-right: 15px;
+}
+
+.daily-item img {
+    width: 35px;
+    height: 35px;
+}
+
+/* تنسيق زر تحميل التطبيق الاحترافي */
+.download-section {
+    margin-top: 30px;
+}
+
+.btn-download {
+    display: inline-block;
+    background: linear-gradient(135deg, #00b4db, #0083b0);
+    color: white;
+    text-decoration: none;
+    padding: 12px 30px;
+    font-weight: bold;
+    border-radius: 25px;
+    box-shadow: 0 4px 15px rgba(0, 180, 219, 0.4);
+    transition: all 0.3s ease;
+    width: 80%;
+}
+
+.btn-download:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 180, 219, 0.6);
+    background: linear-gradient(135deg, #0083b0, #00b4db);
+}
+
 /* الفوتر */
 .site-footer {
     margin-top: 20px;
@@ -61,7 +168,6 @@ body {
     color: rgba(255, 255, 255, 0.6);
 }
 
-/* إخفاء وسم H1 الموجه لجوجل فقط لحماية التصميم */
 .visual-hidden {
     position: absolute;
     width: 1px;
