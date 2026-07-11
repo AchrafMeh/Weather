@@ -1,85 +1,112 @@
+/* إعدادات الخطوط والتناسق العام */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(to bottom, #1f4068, #162447); 
+    background: linear-gradient(135deg, #1f4068, #162447, #1b1a17); 
     color: white;
-    text-align: center;
     margin: 0;
-    padding: 20px 0; /* زدنا شوية مساحة للفوق والتحت */
+    padding: 0;
     display: flex;
-    flex-direction: column; 
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: min-content;
     min-height: 100vh;
 }
 
-.container {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px); 
-    -webkit-backdrop-filter: blur(10px);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    width: 90%;
-    max-width: 430px; /* كبرنا العرض شوية باش يكفي جداول الساعات */
-    margin: auto;
+/* الهيكل التفاعلي الرئيسي المحيط بالواجهة */
+.main-layout {
+    width: 95%;
+    max-width: 1000px;
+    margin: 40px auto;
+    display: grid;
+    grid-template-columns: 1fr; /* الافتراضي للهواتف: عمود واحد */
+    gap: 20px;
+    padding: 10px;
 }
 
+/* التنسيق الزجاجي الموحد للألواح */
+.primary-panel, .secondary-panel {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* لوحة التوقعات */
+.secondary-panel {
+    justify-content: flex-start;
+    gap: 25px;
+}
+
+/* تنسيق الساعة الاحترافي */
 .clock {
-    font-size: 3em;
+    font-size: 3.2em;
     font-weight: bold;
-    margin-bottom: 15px;
+    text-align: center;
+    margin-bottom: 10px;
     letter-spacing: 2px;
-    font-family: monospace; 
+    font-family: monospace;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+/* قسم الطقس الحالي */
+.weather {
+    text-align: center;
 }
 
 .weather h2 {
-    margin: 15px 0;
+    margin: 10px 0 20px 0;
     font-size: 1.8em;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.15);
     padding-bottom: 10px;
 }
 
-/* تنسيق أيقونة الطقس الحالية */
 .weather-icon {
-    width: 80px;
-    height: 80px;
-    filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.2));
+    width: 90px;
+    height: 90px;
+    filter: drop-shadow(0px 6px 12px rgba(0,0,0,0.3));
 }
 
 .weather-info p {
-    font-size: 1.2em;
-    margin: 10px 0;
-    min-height: 24px; 
+    font-size: 1.3em;
+    margin: 12px 0;
 }
 
 .loading-text {
-    opacity: 0.7;
+    opacity: 0.6;
     font-size: 1em !important;
     font-style: italic;
 }
 
-/* تنسيقات أقسام التوقعات الجديدة (الساعات والأيام) */
+/* أقسام التوقعات */
 .forecast-section {
-    margin-top: 25px;
-    text-align: right; /* محاذاة للغة العربية */
+    text-align: right;
 }
 
 .forecast-section h3 {
-    font-size: 1.1em;
+    font-size: 1.15em;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-    color: #e4e4e4;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+    color: #e0e0e0;
 }
 
-/* ستايل الساعات بشكل أفقي مرن */
+/* التوقعات بالساعات (أفقي متجاوب باللمس) */
 .hourly-forecast {
     display: flex;
-    justify-content: space-between;
     overflow-x: auto;
-    padding-bottom: 5px;
-    gap: 10px;
+    padding-bottom: 8px;
+    gap: 12px;
+    scrollbar-width: thin;
 }
 
 .forecast-item {
@@ -87,10 +114,10 @@ body {
     flex-direction: column;
     align-items: center;
     background: rgba(255, 255, 255, 0.05);
-    padding: 8px;
-    border-radius: 8px;
-    min-width: 60px;
-    text-align: center;
+    padding: 10px;
+    border-radius: 12px;
+    min-width: 75px;
+    flex-shrink: 0;
 }
 
 .forecast-item span {
@@ -99,73 +126,90 @@ body {
 }
 
 .forecast-item img {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
 }
 
-/* ستايل الأيام بشكل عمودي منظم */
+/* التوقعات بالأيام */
 .daily-forecast {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
 }
 
 .daily-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 8px 15px;
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 10px 18px;
+    border-radius: 12px;
+    transition: background 0.2s;
+}
+
+.daily-item:hover {
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .day-name {
-    width: 90px;
+    width: 100px;
     text-align: right;
+    font-weight: 600;
 }
 
 .day-desc {
-    font-size: 0.9em;
+    font-size: 0.95em;
     opacity: 0.8;
     flex-grow: 1;
     text-align: right;
-    padding-right: 15px;
+    padding-right: 20px;
 }
 
 .daily-item img {
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
 }
 
-/* تنسيق زر تحميل التطبيق الاحترافي */
+/* ستايل زر تحميل التطبيق بشكل عصري جداً */
 .download-section {
-    margin-top: 30px;
+    margin-top: 25px;
+    text-align: center;
 }
 
 .btn-download {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     background: linear-gradient(135deg, #00b4db, #0083b0);
     color: white;
     text-decoration: none;
-    padding: 12px 30px;
+    padding: 14px 24px;
     font-weight: bold;
-    border-radius: 25px;
-    box-shadow: 0 4px 15px rgba(0, 180, 219, 0.4);
-    transition: all 0.3s ease;
-    width: 80%;
+    border-radius: 30px;
+    box-shadow: 0 4px 20px rgba(0, 180, 219, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+    width: 100%;
 }
 
 .btn-download:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 180, 219, 0.6);
-    background: linear-gradient(135deg, #0083b0, #00b4db);
+    box-shadow: 0 6px 25px rgba(0, 180, 219, 0.5);
+}
+
+.download-icon {
+    width: 20px;
+    height: 20px;
 }
 
 /* الفوتر */
 .site-footer {
-    margin-top: 20px;
+    width: 100%;
+    margin-top: auto;
+    padding: 20px;
     font-size: 0.85em;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
 }
 
 .visual-hidden {
@@ -177,4 +221,24 @@ body {
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
+}
+
+/* ========================================================
+   شاشات الكمبيوتر والأجهزة اللوحية الكبيرة (Responsive Media Query)
+   ======================================================== */
+@media (min-width: 768px) {
+    .main-layout {
+        grid-template-columns: 4fr 5fr; /* تقسيم الشاشة لعمودين متناسقين */
+        align-items: start;
+        gap: 30px;
+    }
+    
+    .primary-panel {
+        position: sticky; /* يثبت العنصر عند النزول لأسفل الصفحة في الشاشات الكبيرة */
+        top: 40px;
+    }
+
+    .clock {
+        font-size: 3.8em;
+    }
 }
